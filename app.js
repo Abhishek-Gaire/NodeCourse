@@ -1,24 +1,23 @@
+const path = require("path");
+
 const express = require("express");
 const bodyParser = require("body-parser");
+
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop")
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //Middleware
-app.use("/add-product", (req, res, next) => {
+app.use(express.static(path.join(__dirname, "public"))); //Static files
 
-    res.send("<form action='/product' method='post'><input type='text' name='title'><button type='submit'>Add Product</button></form>") //Sends a response back to the client 
-});
+app.use("/admin", adminRoutes);
+app.use(shopRoutes);
 
-// only for post
-app.post("/product", (req, res, next) => {
-    console.log(req.body);
-    res.redirect("/");
-})
-app.use("/", (req, res, next) => {
-
-    res.send("<h1>Hello From Express Generated Server</h1>") //Sends a response back to the client 
+app.use((req, res, next) => {
+    res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
 });
 
 app.listen(3000);
