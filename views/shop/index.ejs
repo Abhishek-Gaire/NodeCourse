@@ -20,10 +20,7 @@
                             <p class="product__description"><%= product.description %></p>
                         </div>
                         <div class="card__actions">
-                            <form action="/add-to-car" method="post">
-                                <button class="btn">Add to Cart</button>
-                            </form>
-                            
+                            <%- include("../includes/add-to-cart.ejs",{product:product}) %>
                         </div>
                     </article>
                 <% } %>   
