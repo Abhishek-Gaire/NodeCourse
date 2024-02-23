@@ -5,7 +5,6 @@ exports.getAddProduct = (req, res, next) => {
     res.render("admin/edit-product", {
         pageTitle:"Add Product",
         path:"/admin/add-product",
-        activeAddProduct: true,
         editing:false
     });
 };
@@ -66,7 +65,7 @@ exports.postEditProduct = (req,res,next) => {
 exports.postDeleteProduct = (req,res,next) => {
     const prodId = req.body.productId;
     Product.deleteById(prodId)
-    .then( result => {
+    .then( () => {
         console.log("DESTROYED PRODUCT")
         res.redirect('/admin/products');
     })
