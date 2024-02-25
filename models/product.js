@@ -17,6 +17,11 @@ const productSchema = new Schema({
     imageUrl : {
         type:String,
         required: true,
+    },
+    userId : {
+        type : Schema.Types.ObjectId,
+        ref: "User" , //this means that the User model will be used to validate this field
+        required: true
     }
 });
 
