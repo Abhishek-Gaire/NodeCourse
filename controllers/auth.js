@@ -43,8 +43,8 @@ exports.postLogin = (req, res, next) =>{
                 pageTitle: "Login",
                 errorMessage: errors.array()[0].msg,
                 oldInput: {
-                    email:email
-                    ,password:password,
+                    email:email,
+                    password:password,
                 },
                 validationErrors: errors.array(),
             })
@@ -65,7 +65,8 @@ exports.postLogin = (req, res, next) =>{
                     validationErrors:[],
             })
         }
-        bcrypt.compare(password, user.password).then(doMatch=>{
+        bcrypt.compare(password, user.password)
+        .then(doMatch=>{
             if(doMatch){
                 req.session.isLoggedIn = true;
                 req.session.user = user;

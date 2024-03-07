@@ -14,40 +14,46 @@ router.get("/add-product",isAuth, adminController.getAddProduct);
 router.get("/products",isAuth, adminController.getProductsAdmin);
 
 // // only for post
-router.post("/add-product",[
-    body("title")
-        .isString()
-        .isLength({min:3})
-        .trim(),
-    body("imageUrl")
-        .isURL(),
-    body("price")
-        .isFloat(),
-    body("description")
-        .isLength({min:5, max:400})
-        .trim(),
+router.post(
+    "/add-product",
+    [
+        body("title")
+            .isString()
+            .isLength({min:3})
+            .trim(),
+        body("imageUrl")
+            .isURL(),
+        body("price")
+            .isFloat(),
+        body("description")
+            .isLength({min:5, max:400})
+            .trim(),
     ], 
     isAuth,
-    adminController.postAddProduct );
+    adminController.postAddProduct 
+);
 
 router.get("/edit-product/:productId" , isAuth,adminController.getEditProduct);
 
-router.post("/edit-product",[
-    body("title")
-        .isAlphanumeric()
-        .isLength({min:3})
-        .trim(),
-    body("imageUrl")
-        .isURL(),
-    body("price")
-        .isFloat(),
-    body("description")
-        .isLength({min:5, max:400})
-        .trim(),
+router.post(
+    "/edit-product",
+    [
+        body("title")
+            .isAlphanumeric()
+            .isLength({min:3})
+            .trim(),
+        body("imageUrl")
+            .isURL(),
+        body("price")
+            .isFloat(),
+        body("description")
+            .isLength({min:5, max:400})
+            .trim(),
     ],
     isAuth,
-    adminController.postEditProduct)
-router.post("/delete-product",isAuth, adminController.postDeleteProduct)
+    adminController.postEditProduct
+);
+router.post("/delete-product",isAuth, adminController.postDeleteProduct);
 
 
 module.exports = router;
