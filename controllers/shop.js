@@ -123,6 +123,30 @@ exports.deleteFromCart= (req,res,next)=>{
             return next(error);
     })
 };
+exports.getCheckout = (req,res,next) => {
+    req.user
+    .populate("cart.items.productId")
+    // .execPopulate() do not need this
+    .then(user =>{
+        const products = user.cart.items;
+        let total = 0;
+        products.forEach(p => {
+            total += p.quantity * p.productId.price;
+           
+        })
+        res.render("shop/checkout", {
+            pageTitle:"Checkout",
+            path:"/checkout",   
+            products:products,       
+            totalSum: total
+        });
+    })
+    .catch(err => {
+        const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+    })
+}
 exports.postOrder = (req,res,next) => {
     req.user
         .populate('cart.items.productId')
